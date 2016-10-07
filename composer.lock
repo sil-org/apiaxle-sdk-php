@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e396270cfb1ca733adc4f26a25f08001",
-    "content-hash": "28aaece3a07d572d83aa2d5602ca890e",
+    "hash": "629787985e0c8226bcfb15a596017a0b",
+    "content-hash": "6efde0d3b6fbdcdee61b9001a65d7d11",
     "packages": [
         {
             "name": "forevermatt/calc-api-sig",
@@ -388,15 +388,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "47cd1dcac8df83b6f8a5fe85e3b743d079160643"
+                "reference": "9b2c146291b6a5a1d22a837e86ca77ade3941f47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/47cd1dcac8df83b6f8a5fe85e3b743d079160643",
-                "reference": "47cd1dcac8df83b6f8a5fe85e3b743d079160643",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9b2c146291b6a5a1d22a837e86ca77ade3941f47",
+                "reference": "9b2c146291b6a5a1d22a837e86ca77ade3941f47",
                 "shasum": ""
             },
             "conflict": {
+                "adodb/adodb-php": "<5.20.6",
                 "amphp/artax": ">=2,<2.0.4|>0.7.1,<1.0.4",
                 "aws/aws-sdk-php": ">=3,<3.2.1",
                 "bugsnag/bugsnag-laravel": ">=2,<2.0.2",
@@ -507,7 +508,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2016-09-30 13:56:41"
+            "time": "2016-10-07 16:42:29"
         }
     ],
     "packages-dev": [

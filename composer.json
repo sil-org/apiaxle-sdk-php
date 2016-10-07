@@ -1,5 +1,5 @@
 {
-  "name": "silinternational/apiaxle-php-sdk",
+  "name": "silinternational/apiaxle-sdk-php",
   "description": "PHP client for ApiAxle APIs",
   "type": "library",
   "license": "MIT",
