@@ -1,0 +1,35 @@
+{
+  "name": "silinternational/apiaxle-php-sdk",
+  "description": "PHP client for ApiAxle APIs",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Phillip Shipley",
+      "email": "phillip.shipley@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4",
+    "guzzlehttp/guzzle": "^5.3.1",
+    "guzzlehttp/guzzle-services": "dev-master",
+    "guzzlehttp/retry-subscriber": "^2.0.2",
+    "forevermatt/calc-api-sig": "^0.1.1",
+    "roave/security-advisories": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.5.6",
+    "satooshi/php-coveralls": "^1.0.1",
+    "silinternational/php-env": "^0.2.0"
+  },
+  "suggest": {
+    "roave/security-advisories": "Make sure you don't install dependencies with known issues. Install dev-master version."
+  },
+  "autoload": {
+    "psr-4": {
+      "Apiaxle\\": "src/",
+      "ApiaxleTests\\": "tests/"
+    }
+  }
+}
