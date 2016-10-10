@@ -2,7 +2,10 @@
 This library provides coverage for the [ApiAxle](https://apiaxle.com) API. It was built using 
 [Guzzle](https://github.com/guzzle/guzzle) and 
 [Guzzle Services](https://github.com/guzzle/guzzle-services) for simplicity of development and 
-maintenance. 
+maintenance.
+
+[![Coverage Status](https://coveralls.io/repos/github/silinternational/apiaxle-sdk-php/badge.svg?branch=master)](https://coveralls.io/github/silinternational/apiaxle-sdk-php?branch=master)
+[![Build Status](https://travis-ci.org/silinternational/apiaxle-sdk-php.svg?branch=master)](https://travis-ci.org/silinternational/apiaxle-sdk-php)
 
 ## Installation
 Install using composer:

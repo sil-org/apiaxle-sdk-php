@@ -40,8 +40,6 @@ class ApiTest extends TestBase
             'defaultPath' => '/api',
         ]);
 
-        die(print_r($api,true));
-
         $this->assertEquals(200, $api['statusCode']);
         $this->assertEquals('http', $api['results']['protocol']);
     }
