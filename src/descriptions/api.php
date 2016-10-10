@@ -34,6 +34,12 @@ $apiParameters = [
         'default' => 'http',
         'required' => false,
     ],
+    'tokenSkewProtectionCount' => [
+        'type' => 'integer',
+        'location' => 'json',
+        'default' => 3,
+        'required' => false,
+    ],
     'apiFormat' => [
         'type' => 'string',
         'location' => 'json',
