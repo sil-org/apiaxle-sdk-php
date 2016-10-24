@@ -570,14 +570,17 @@ return [
                 'from' => [
                     'required' => false,
                     'type' => 'integer',
+                    'location' => 'query',
                 ],
                 'to' => [
                     'required' => false,
                     'type' => 'integer',
+                    'location' => 'query',
                 ],
                 'resolve' => [
                     'required' => false,
                     'type' => 'boolean',
+                    'location' => 'query',
                 ],
             ]
         ],
