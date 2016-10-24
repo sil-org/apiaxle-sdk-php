@@ -1,5 +1,5 @@
 # apiaxle-sdk-php
-This library provides coverage for the [ApiAxle](https://apiaxle.com) API. It was built using 
+This library provides coverage for the [ApiAxle](http://apiaxle.com) API. It was built using 
 [Guzzle](https://github.com/guzzle/guzzle) and 
 [Guzzle Services](https://github.com/guzzle/guzzle-services) for simplicity of development and 
 maintenance.
@@ -19,7 +19,7 @@ Each resource has its own class:
  - Key: `Apiaxle\Key`
  - Keyring: `Apiaxle\Keyring`
  
-For each resource you instanciate the object by passing in a configuration array with at least 
+For each resource you instantiate the object by passing in a configuration array with at least 
 the following parameters:
 
  - `endpoint`: The Endpoint URL for your ApiAxle installation
