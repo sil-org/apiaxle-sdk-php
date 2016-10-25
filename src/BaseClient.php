@@ -40,7 +40,9 @@ class BaseClient extends GuzzleClient
                     'auth' => [
                         $config['key'],
                         isset($config['secret']) ? $config['secret'] : null
-                    ]
+                    ],
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => '{}',
                 ],
             ],
         ]);
