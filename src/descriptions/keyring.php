@@ -82,12 +82,12 @@ return [
                 ],
                 'createdAt' => [
                     'required' => false,
-                    'type' => 'string',
+                    'type' => 'integer',
                     'location' => 'json',
                 ],
                 'updatedAt' => [
                     'required' => false,
-                    'type' => 'string',
+                    'type' => 'integer',
                     'location' => 'json',
                 ],
             ],
@@ -110,12 +110,12 @@ return [
                 ],
                 'createdAt' => [
                     'required' => false,
-                    'type' => 'string',
+                    'type' => 'integer',
                     'location' => 'json',
                 ],
                 'updatedAt' => [
                     'required' => false,
-                    'type' => 'string',
+                    'type' => 'integer',
                     'location' => 'json',
                 ],
             ],

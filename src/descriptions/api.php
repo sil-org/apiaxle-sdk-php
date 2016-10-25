@@ -10,13 +10,13 @@ $apiParameters = [
         'required' => true,
     ],
     'createdAt' => [
-        'type' => 'string',
+        'type' => 'integer',
         'format' => 'date-time',
         'location' => 'json',
         'required' => false,
     ],
     'updatedAt' => [
-        'type' => 'string',
+        'type' => 'integer',
         'format' => 'date-time',
         'location' => 'json',
         'required' => false,
