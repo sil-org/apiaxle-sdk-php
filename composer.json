@@ -13,7 +13,7 @@
   "require": {
     "php": ">=5.4",
     "guzzlehttp/guzzle": "^5.3.1",
-    "guzzlehttp/guzzle-services": "dev-master",
+    "guzzlehttp/guzzle-services": "^0.6",
     "guzzlehttp/retry-subscriber": "^2.0.2",
     "forevermatt/calc-api-sig": "^0.1.1",
     "roave/security-advisories": "dev-master"
