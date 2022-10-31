@@ -1,26 +1,30 @@
 <?php
 namespace Apiaxle;
 
-use Apiaxle\middleware\AuthSubscriber;
-use Apiaxle\middleware\MockSubscriber;
+use Apiaxle\middleware\AuthRequest;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Description;
+
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+
+use Psr\Http\Message\RequestInterface;
 
 /**
  * BaseClient class to implement common features
  */
 class BaseClient extends GuzzleClient
 {
-    public $mockMode;
+    public $mock;
 
     /**
      * @param array $config
      * @param boolean $mockMode [default=false]
      * @throws \Exception
      */
-    public function __construct(array $config = [], $mockMode = false)
+    public function __construct(array $config = [], $mock = null)
     {
         /*
          * Check that baseUrl, key, and secret
@@ -29,8 +33,8 @@ class BaseClient extends GuzzleClient
             throw new \Exception('Configuration missing baseUrl or key', 1466965269);
         }
 
-        // Set mock mode
-        $this->mockMode = $mockMode;
+        // Set mock middleware
+        $this->mock = $mock;
 
         // Apply some defaults.
         $config = array_merge_recursive($config, [
@@ -65,6 +69,9 @@ class BaseClient extends GuzzleClient
         parent::__construct(
             $this->getHttpClientFromConfig($config),
             $this->getDescriptionFromConfig($config),
+            null,
+            null,
+            null,
             $config
         );
 
@@ -87,21 +94,27 @@ class BaseClient extends GuzzleClient
         $clientOptions = isset($config['http_client_options'])
             ? $config['http_client_options']
             : [];
-        $client = new HttpClient($clientOptions);
 
         /*
          * Attach subscriber for adding auth headers just before request
          */
-        $client->getEmitter()->attach(new AuthSubscriber());
+        $addAuthHeaderFn = function(RequestInterface $request, $options=[]) use ($clientOptions) {
+            return AuthRequest::addAuthParams($request, $clientOptions);
+        };
 
         /*
-         * If mock env, attach MockSubscriber
+         * If we have a mock handler (for testing), begin with it
          */
-        if($this->mockMode) {
-            $client->getEmitter()->attach(new MockSubscriber());
+        if (!empty($this->mock)) {
+            $stack = HandlerStack::create($this->mock);
+        } else {
+            $stack = HandlerStack::create();
         }
 
-        return $client;
+        $stack->push(Middleware::mapRequest($addAuthHeaderFn));
+
+        $clientOptions['handler'] = $stack;
+        return new HttpClient($clientOptions);
     }
 
     private function getDescriptionFromConfig(array $config)
@@ -126,9 +139,6 @@ class BaseClient extends GuzzleClient
             : [];
 
         $data = array_merge($data, $models);
-
-        //die(print_r($data, true));
-
         // Override description from local config if set
         if(isset($config['description_override'])){
             $data = array_merge($data, $config['description_override']);
