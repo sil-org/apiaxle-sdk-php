@@ -19,7 +19,7 @@ class Key extends BaseClient
      * @param array $config
      * @param boolean $mockMode
      */
-    public function __construct(array $config = [], $mockMode = false)
+    public function __construct(array $config = [], $mock = null)
     {
         // Apply some defaults.
         $config += [
@@ -29,7 +29,7 @@ class Key extends BaseClient
         // Create the client.
         parent::__construct(
             $config,
-            $mockMode
+            $mock
         );
 
     }
