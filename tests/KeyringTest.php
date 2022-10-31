@@ -1,7 +1,10 @@
 <?php
 namespace ApiaxleTests;
 
+use GuzzleHttp\Psr7\Response;
+
 use Apiaxle\Keyring;
+
 
 include __DIR__ . '/../vendor/autoload.php';
 
@@ -13,7 +16,19 @@ class KeyringTest extends TestBase
     public function testCreate()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "createdAt": 1475860320098
+  }
+}';
+        $this::nextMock($client, 200, $mockBody);
+
         $list = $client->create([
+            'ApiVersion' => '1',
             'id' => 'sample'
         ]);
 
@@ -23,7 +38,19 @@ class KeyringTest extends TestBase
     public function testGet()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "createdAt": 1475860320098
+  }
+}';
+        $this::nextMock($client, 200, $mockBody);
+
         $list = $client->get([
+            'ApiVersion' => '1',
             'id' => 'sample'
         ]);
 
@@ -33,7 +60,19 @@ class KeyringTest extends TestBase
     public function testUpdate()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "createdAt": 1475860320098
+  }
+}';
+        $this::nextMock($client, 200, $mockBody);
+
         $list = $client->update([
+            'ApiVersion' => '1',
             'id' => 'sample'
         ]);
 
@@ -43,7 +82,22 @@ class KeyringTest extends TestBase
     public function testList()
     {
         $client = $this->getClient(self::objectClass);
-        $list = $client->list([]);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200,
+    "pagination": {
+      "next": {},
+      "prev": {}
+    }
+  },
+  "results": [
+    "sample"
+  ]
+}';
+        $this::nextMock($client, 200, $mockBody);
+
+        $list = $client->list(['ApiVersion' => '1']);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(1, count($list['results']));
@@ -53,7 +107,20 @@ class KeyringTest extends TestBase
     public function testLinkKey()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475853823003
+  }
+}';
+        $this::nextMock($client, 200, $mockBody);
+
         $list = $client->linkKey([
+            'ApiVersion' => '1',
             'id' => 'sample',
             'key' => 'abc123',
         ]);
@@ -65,7 +132,19 @@ class KeyringTest extends TestBase
     public function testListKeys()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": [
+    "abc123"
+  ]
+}';
+        $this::nextMock($client, 200, $mockBody);
+
         $list = $client->listKeys([
+            'ApiVersion' => '1',
             'id' => 'sample',
         ]);
 
@@ -77,7 +156,20 @@ class KeyringTest extends TestBase
     public function testUnlinkKey()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475853823003
+  }
+}';
+        $this::nextMock($client, 200, $mockBody);
+
         $list = $client->unlinkKey([
+            'ApiVersion' => '1',
             'id' => 'sample',
             'key' => 'abc123',
         ]);
