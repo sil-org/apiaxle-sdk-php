@@ -39,16 +39,12 @@ class BaseClient extends GuzzleClient
         // Apply some defaults.
         $config = array_merge_recursive($config, [
             'max_retries' => 3,
-            'http_client_options' => [
-                'defaults' => [
-                    'auth' => [
-                        $config['key'],
-                        isset($config['secret']) ? $config['secret'] : null
-                    ],
-                    'headers' => ['Content-Type' => 'application/json'],
-                    'body' => '{}',
-                ],
+            'auth' => [
+                $config['key'],
+                isset($config['secret']) ? $config['secret'] : null
             ],
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => '{}',
         ]);
 
         // If an override base url is not provided, determine proper baseurl from env
@@ -90,16 +86,11 @@ class BaseClient extends GuzzleClient
             return $config['http_client'];
         }
 
-        // Create a Guzzle HttpClient.
-        $clientOptions = isset($config['http_client_options'])
-            ? $config['http_client_options']
-            : [];
-
         /*
          * Attach subscriber for adding auth headers just before request
          */
-        $addAuthHeaderFn = function(RequestInterface $request, $options=[]) use ($clientOptions) {
-            return AuthRequest::addAuthParams($request, $clientOptions);
+        $addAuthHeaderFn = function(RequestInterface $request, $options=[]) use ($config) {
+            return AuthRequest::addAuthParams($request, $config);
         };
 
         /*
