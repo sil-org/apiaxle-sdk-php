@@ -28,7 +28,7 @@ class KeyringTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $list = $client->create([
-            'ApiVersion' => '1',
+            'ApiVersion' => 'v2',
             'id' => 'sample'
         ]);
 
@@ -49,10 +49,7 @@ class KeyringTest extends TestBase
 }';
         $this::nextMock($client, 200, $mockBody);
 
-        $list = $client->get([
-            'ApiVersion' => '1',
-            'id' => 'sample'
-        ]);
+        $list = $client->get(['id' => 'sample']);
 
         $this->assertEquals(200, $list['statusCode']);
     }
@@ -71,10 +68,7 @@ class KeyringTest extends TestBase
 }';
         $this::nextMock($client, 200, $mockBody);
 
-        $list = $client->update([
-            'ApiVersion' => '1',
-            'id' => 'sample'
-        ]);
+        $list = $client->update(['id' => 'sample']);
 
         $this->assertEquals(200, $list['statusCode']);
     }
@@ -97,7 +91,7 @@ class KeyringTest extends TestBase
 }';
         $this::nextMock($client, 200, $mockBody);
 
-        $list = $client->list(['ApiVersion' => '1']);
+        $list = $client->list([]);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(1, count($list['results']));
@@ -120,7 +114,6 @@ class KeyringTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $list = $client->linkKey([
-            'ApiVersion' => '1',
             'id' => 'sample',
             'key' => 'abc123',
         ]);
@@ -143,10 +136,7 @@ class KeyringTest extends TestBase
 }';
         $this::nextMock($client, 200, $mockBody);
 
-        $list = $client->listKeys([
-            'ApiVersion' => '1',
-            'id' => 'sample',
-        ]);
+        $list = $client->listKeys(['id' => 'sample']);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(1, count($list['results']));
@@ -169,7 +159,6 @@ class KeyringTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $list = $client->unlinkKey([
-            'ApiVersion' => '1',
             'id' => 'sample',
             'key' => 'abc123',
         ]);

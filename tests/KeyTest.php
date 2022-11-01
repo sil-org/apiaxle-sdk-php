@@ -28,7 +28,7 @@ class KeyTest extends TestBase
 }';
         $this::nextMock($client, 200, $mockBody);
 
-        $list = $client->list(['ApiVersion' => '1',]);
+        $list = $client->list(['ApiVersion' => 'v2',]);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(1, count($list['results']));
@@ -51,7 +51,6 @@ class KeyTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $api = $client->get([
-            'ApiVersion' => '1',
             'id' => 'abc123',
         ]);
 
@@ -75,7 +74,6 @@ class KeyTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $api = $client->create([
-            'ApiVersion' => '1',
             'id' => 'def123',
         ]);
 
@@ -91,7 +89,6 @@ class KeyTest extends TestBase
         $this->expectException('GuzzleHttp\Command\Exception\CommandException');
         $this->expectExceptionMessage('Validation errors: [qpm] must be of type integer');
         $client->create([
-            'ApiVersion' => '1',
             'id' => 'testinginvalidparameters',
             'qpm' => 'invalid'
         ]);
@@ -121,7 +118,6 @@ class KeyTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $api = $client->update([
-            'ApiVersion' => '1',
             'id' => 'def123',
             'qpm' => -1
         ]);
@@ -149,7 +145,6 @@ class KeyTest extends TestBase
         $this::nextMock($client, 200, $mockBody);
 
         $api = $client->listApis([
-            'ApiVersion' => '1',
             'id' => 'abc123',
         ]);
 

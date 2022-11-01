@@ -16,7 +16,7 @@ class ApiTest extends TestBase
 
         $mockBody = '{
   "meta": {
-    "version": 1,
+    "version": 2,
     "status_code": 200,
     "pagination": {
       "next": {
@@ -36,8 +36,7 @@ class ApiTest extends TestBase
 }';
         $this::nextMock($client, 200, $mockBody);
 
-        $list = $client->list([
-            'ApiVersion' => '1',]);
+        $list = $client->list(['ApiVersion' => 'v2',]);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(4, count($list['results']));
@@ -74,7 +73,6 @@ class ApiTest extends TestBase
 
         $api = $client->get([
             'id' => 'apiaxle',
-            'ApiVersion' => '1',
         ]);
 
         $this->assertEquals(200, $api['statusCode']);
@@ -113,7 +111,6 @@ class ApiTest extends TestBase
         $api = $client->create([
             //'id' => 'testapi',
             'id' => 'testapi',
-            'ApiVersion' => '1',
             'endpoint' => 'myapiendpoint.com',
             'protocol' => 'https',
             'strictSSL' => true,
@@ -133,7 +130,6 @@ class ApiTest extends TestBase
         $this->expectExceptionMessage('Validation errors: [protocol] must be one of "http" or "https"');
         $client->create([
             'id' => 'testinginvalidparameters',
-            'ApiVersion' => '1',
             'protocol' => 'invalid'
         ]);
     }
@@ -147,7 +143,6 @@ class ApiTest extends TestBase
         $this->expectExceptionMessage('Validation errors: [strictSSL] must be of type boolean');
         $client->create([
             'id' => 'testinginvalidparameters',
-            'ApiVersion' => '1',
             'strictSSL' => [], // apparently, it accepts strings and integers as booleans now
         ]);
     }
@@ -202,7 +197,6 @@ class ApiTest extends TestBase
 
         $api = $client->update([
             'id' => 'testapi',
-            'ApiVersion' => '1',
             'protocol' => 'http'
         ]);
 
@@ -225,7 +219,6 @@ class ApiTest extends TestBase
 
         $api = $client->addCapturePath([
             'id' => 'testapi',
-            'ApiVersion' => '1',
             'path' => 'example'
         ]);
 
@@ -248,7 +241,6 @@ class ApiTest extends TestBase
 
         $api = $client->deleteCapturePath([
             'id' => 'testapi',
-            'ApiVersion' => '1',
             'path' => 'example'
         ]);
 
@@ -273,7 +265,6 @@ class ApiTest extends TestBase
 
         $api = $client->listCapturePaths([
             'id' => 'testapi',
-            'ApiVersion' => '1',
         ]);
 
         $this->assertEquals(200, $api['statusCode']);
@@ -299,7 +290,6 @@ class ApiTest extends TestBase
 
         $api = $client->linkKey([
             'id' => 'dummy',
-            'ApiVersion' => '1',
             'key' => 'abc123'
         ]);
 

@@ -1,4 +1,7 @@
 <?php
+
+$defaultApiVersion = 'v1';
+
 return [
     'operations' => [
         'List' => [
@@ -7,9 +10,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'from' => [
                     'required' => false,
@@ -35,9 +39,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -53,9 +58,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -71,9 +77,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -99,9 +106,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -127,9 +135,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -160,9 +169,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -183,9 +193,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -206,9 +217,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,

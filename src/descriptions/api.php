@@ -1,5 +1,7 @@
 <?php
 
+$defaultApiVersion = 'v1';
+
 /*
  * Define Api model parameters for reuse
  */
@@ -126,9 +128,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'from' => [
                     'required' => false,
@@ -154,9 +157,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -172,9 +176,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -191,9 +196,10 @@ return [
             'parameters' => array_merge(
                 [
                     'ApiVersion' => [
-                        'required' => true,
+                        'required' => false,
                         'type'     => 'string',
                         'location' => 'uri',
+                        'default' => $defaultApiVersion,
                     ]
                 ],
                 $apiParameters
@@ -207,9 +213,10 @@ return [
             'parameters' => array_merge(
                 [
                     'ApiVersion' => [
-                        'required' => true,
+                        'required' => false,
                         'type'     => 'string',
                         'location' => 'uri',
+                        'default' => $defaultApiVersion,
                     ]
                 ],
                 $apiParameters
@@ -222,9 +229,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -246,9 +254,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -270,9 +279,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -288,9 +298,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -348,9 +359,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -408,9 +420,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -458,9 +471,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -508,9 +522,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -558,9 +573,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -591,9 +607,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -614,9 +631,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -637,9 +655,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -692,9 +711,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
                 'id' => [
                     'required' => true,
@@ -737,9 +757,10 @@ return [
             'responseModel' => 'Generic',
             'parameters' => [
                 'ApiVersion' => [
-                    'required' => true,
+                    'required' => false,
                     'type'     => 'string',
                     'location' => 'uri',
+                    'default' => $defaultApiVersion,
                 ],
             ],
         ],
