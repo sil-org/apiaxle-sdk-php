@@ -1,6 +1,12 @@
 <?php
 
-$defaultApiVersion = 'v1';
+$apiVersionKey = 'ApiVersion';
+$apiVersionParam =  [
+    'required' => false,
+    'type'     => 'string',
+    'location' => 'uri',
+    'default' => 'v1',
+];
 
 /*
  * Define Kpi model parameters for reuse
@@ -72,12 +78,7 @@ return [
             'uri' => '/{ApiVersion}/keys',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'from' => [
                     'required' => false,
                     'type' => 'integer',
@@ -101,12 +102,7 @@ return [
             'uri' => '/{ApiVersion}/keys/all',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'from' => [
                     'required' => false,
                     'type' => 'integer',
@@ -142,12 +138,7 @@ return [
             'uri' => '/{ApiVersion}/keys/charts',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'granularity' => [
                     'required' => false,
                     'type' => 'string',
@@ -162,12 +153,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -181,12 +167,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
@@ -200,14 +181,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}',
             'responseModel' => 'Generic',
             'parameters' => array_merge(
-                [
-                    'ApiVersion' => [
-                        'required' => false,
-                        'type'     => 'string',
-                        'location' => 'uri',
-                        'default' => $defaultApiVersion,
-                    ]
-                ],
+                [$apiVersionKey => $apiVersionParam],
                 $keyParameters
             ),
         ],
@@ -217,14 +191,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}',
             'responseModel' => 'Generic',
             'parameters' => array_merge(
-                [
-                    'ApiVersion' => [
-                        'required' => false,
-                        'type'     => 'string',
-                        'location' => 'uri',
-                        'default' => $defaultApiVersion,
-                    ]
-                ],
+                [$apiVersionKey => $apiVersionParam],
                 $keyParameters
             ),
         ],
@@ -234,12 +201,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}/apicharts',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
@@ -259,12 +221,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}/apis',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
@@ -283,12 +240,7 @@ return [
             'uri' => '/{ApiVersion}/key/{id}/stats',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => false,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                    'default' => $defaultApiVersion,
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
