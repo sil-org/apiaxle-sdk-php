@@ -1,16 +1,13 @@
 <?php
 namespace Apiaxle;
 
-use Apiaxle\middleware\AuthRequest;
-
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Description;
 
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 
-use Psr\Http\Message\RequestInterface;
+use Apiaxle\middleware\RequestExtras;
 
 /**
  * BaseClient class to implement common features
@@ -86,12 +83,6 @@ class BaseClient extends GuzzleClient
             return $config['http_client'];
         }
 
-        /*
-         * Attach subscriber for adding auth headers just before request
-         */
-        $addAuthHeaderFn = function(RequestInterface $request, $options=[]) use ($config) {
-            return AuthRequest::addAuthParams($request, $config);
-        };
 
         /*
          * If we have a mock handler (for testing), begin with it
@@ -102,7 +93,12 @@ class BaseClient extends GuzzleClient
             $stack = HandlerStack::create();
         }
 
-        $stack->push(Middleware::mapRequest($addAuthHeaderFn));
+
+        /*
+         * Add auth headers just before request
+         */
+        $stack->push(RequestExtras::getAddAuthParamsFn($config));
+        $stack->push(RequestExtras::getAddContentTypeFn('application/json'));
 
         $clientOptions['handler'] = $stack;
         return new HttpClient($clientOptions);
