@@ -99,6 +99,7 @@ class BaseClient extends GuzzleClient
          */
         $stack->push(RequestExtras::getAddAuthParamsFn($config));
         $stack->push(RequestExtras::getAddContentTypeFn('application/json'));
+        $stack->push(RequestExtras::getEnsureBodyFn());
 
         $clientOptions['handler'] = $stack;
         return new HttpClient($clientOptions);

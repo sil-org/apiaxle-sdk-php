@@ -5,7 +5,9 @@ namespace Apiaxle\middleware;
 
 use CalcApiSig\HmacSigner;
 
+use GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
+
 
 class RequestExtras
 {
@@ -19,6 +21,26 @@ class RequestExtras
                 $reqMeth = $request->getMethod();
                 if ($reqMeth == 'POST' || $reqMeth == 'PUT') {
                     $request = $request->withHeader('Content-Type', $contentType);
+                }
+                return $handler($request, $options);
+            };
+        };
+    }
+
+    public static function getEnsureBodyFn()
+    {
+        return static function (callable $handler) {
+            return static function (RequestInterface $request, array $options) use ($handler) {
+                $reqMeth = $request->getMethod();
+                if ($reqMeth != 'POST' && $reqMeth != 'PUT') {
+                    return $handler($request, $options);
+                }
+
+                $stream = $request->getBody();
+                $contents = $stream->getContents();
+                $stream->rewind(); // Just to make sure the body is available later on
+                if (!$contents) {
+                    $request = $request->withBody(Psr7\Utils::streamFor('{}'));
                 }
                 return $handler($request, $options);
             };
