@@ -2,14 +2,24 @@
 
 namespace Apiaxle\middleware;
 
-use CalcApiSig\HmacSigner;
+
 use Psr\Http\Message\RequestInterface;
 
-class AuthRequest
+class RequestExtras
 {
-
     const DEFAULTSKEY = 'defaults';
     const AUTHKEY = 'auth';
+
+    public static function getAddContentTypeFn($contentType): callable
+    {
+        return static function (callable $handler) use ($contentType): callable {
+            return static function (RequestInterface $request, array $options) use ($handler, $contentType) {
+                $request = $request->withHeader('Content-Type', $contentType);
+                return $handler($request, $options);
+            };
+        };
+    }
+
 
     private static function countAtLeast(array $input, $minimum){
         if (! is_array($input)) {
@@ -26,7 +36,7 @@ class AuthRequest
                 throw new \Exception('Middleware client options have an invalid \'auth\' array.', 1666607090);
             }
 
-        // If there is no specific auth entry, use the default
+            // If there is no specific auth entry, use the default
         } else {
             if (!isset($options[self::DEFAULTSKEY][self::AUTHKEY]) ||
                 ! self::countAtLeast($options[self::DEFAULTSKEY][self::AUTHKEY], 1)) {
@@ -40,6 +50,7 @@ class AuthRequest
         $secret = isset($auth[1]) ? $auth[1] : null;
         return [$key, $secret];
     }
+
 
     public static function addAuthParams(RequestInterface $request, array $options)
     {
@@ -69,5 +80,16 @@ class AuthRequest
 
         $uri = $uri->withQuery($params);
         return $request->withUri($uri);
+    }
+
+
+    public static function getAddAuthParamsFn($config): callable
+    {
+        return static function (callable $handler) use ($config) : callable {
+            return static function (RequestInterface $request, array $options) use ($handler, $config) {
+                $request = self::addAuthParams($request, $config);
+                return $handler($request, $options);
+            };
+        };
     }
 }
