@@ -3,6 +3,8 @@
 namespace Apiaxle\middleware;
 
 
+use CalcApiSig\HmacSigner;
+
 use Psr\Http\Message\RequestInterface;
 
 class RequestExtras
