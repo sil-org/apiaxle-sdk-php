@@ -14,7 +14,10 @@ class RequestExtras
     {
         return static function (callable $handler) use ($contentType) {
             return static function (RequestInterface $request, array $options) use ($handler, $contentType) {
-                $request = $request->withHeader('Content-Type', $contentType);
+                $reqMeth = $request->getMethod();
+                if ($reqMeth == 'POST' || $reqMeth == 'PUT') {
+                    $request = $request->withHeader('Content-Type', $contentType);
+                }
                 return $handler($request, $options);
             };
         };
