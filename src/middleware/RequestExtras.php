@@ -58,7 +58,7 @@ class RequestExtras
         };
     }
 
-
+    
     public static function addAuthParams(RequestInterface $request, array $options)
     {
         list($key, $secret) = self::getAuthKeySecret($options);
@@ -69,25 +69,29 @@ class RequestExtras
         $request = $request->withoutHeader('Authorization');
         $uri = $request->getUri();
 
-        // Remove previous query string
-        $uri = $uri->withQuery("");
+        $qs = $uri->getQuery();
+        parse_str(parse_url("?$qs", PHP_URL_QUERY), $params);
+
 
         /*
          * Add request params for key and secret if needed
          */
-        $params = "api_key=$key";
+        $params['api_key'] = $key;
+        unset($params['api_sig']);
 
         /*
          * Calculate signature if secret is present
          */
         if ($secret !== null) {
             $signature = HmacSigner::CalcApiSig($key, $secret);
-            $params .= "&api_sig=$signature";
+            $params['api_sig'] = $signature;
         }
 
-        $uri = $uri->withQuery($params);
+        $qs = http_build_query($params);
+        $uri = $uri->withQuery($qs);
         return $request->withUri($uri);
     }
+
 
     private static function getAuthKeySecret(array $options) {
         // If there is a specific auth entry, use it
