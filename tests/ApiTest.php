@@ -95,14 +95,14 @@ class ApiTest extends TestBase
     "status_code": 200
   },
   "results": {
-    "protocol": "http",
+    "protocol": "https",
     "apiFormat": "json",
     "endPointTimeout": 2,
     "disabled": false,
     "strictSSL": true,
     "sendThroughApiKey": false,
     "sendThroughApiSig": false,
-    "endPoint": "localhost:8000",
+    "endPoint": "myapiendpoint.com",
     "createdAt": 1389915291013,
     "tokenSkewProtectionCount": 3,
     "hasCapturePaths": false,
@@ -129,7 +129,7 @@ class ApiTest extends TestBase
         ]);
 
         $this->assertEquals(200, $api['statusCode']);
-        $this->assertEquals('http', $api['results']['protocol']);
+        $this->assertEquals('https', $api['results']['protocol']);
     }
 
     public function testCreateInvalidProtocol()
