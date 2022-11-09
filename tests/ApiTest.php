@@ -2,6 +2,8 @@
 namespace ApiaxleTests;
 
 use Apiaxle\Api;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
 
 include __DIR__ . '/../vendor/autoload.php';
 
@@ -34,7 +36,9 @@ class ApiTest extends TestBase
     "sample"
   ]
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $mockResp = new MockResponder('GET', '/v2/apis');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $list = $client->list(['ApiVersion' => 'v2',]);
 
@@ -69,7 +73,9 @@ class ApiTest extends TestBase
     "updatedAt": 1427892638934
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $mockResp = new MockResponder('GET', '/v1/api/apiaxle');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->get([
             'id' => 'apiaxle',
@@ -106,10 +112,15 @@ class ApiTest extends TestBase
     "updatedAt": 1427892638934
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $wantBody = '{"protocol":"https","tokenSkewProtectionCount":3,"apiFormat":"json",' .
+            '"endPointTimeout":2,"defaultPath":"\/api","disabled":false,"strictSSL":true,' .
+            '"sendThroughApiKey":false,"sendThroughApiSig":false,"hasCapturePaths":false,' .
+            '"allowKeylessUse":false,"keylessQps":2,"keylessQpd":172800}';
+        $mockResp = new MockResponder('POST', '/v1/api/testapi', $wantBody);
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->create([
-            //'id' => 'testapi',
             'id' => 'testapi',
             'endpoint' => 'myapiendpoint.com',
             'protocol' => 'https',
@@ -193,7 +204,14 @@ class ApiTest extends TestBase
     }
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $wantBody = '{"protocol":"http","tokenSkewProtectionCount":3,"apiFormat":"json",' .
+            '"endPointTimeout":2,"disabled":false,"strictSSL":true,' .
+            '"sendThroughApiKey":false,"sendThroughApiSig":false,"hasCapturePaths":false,' .
+            '"allowKeylessUse":false,"keylessQps":2,"keylessQpd":172800}';
+
+        $mockResp = new MockResponder('PUT', '/v1/api/testapi', $wantBody);
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->update([
             'id' => 'testapi',
@@ -215,7 +233,9 @@ class ApiTest extends TestBase
   },
   "results": "example"
 }';
-        $this::nextMock($client, 200, $mockBody);
+        $wantPath = '/v1/api/testapi/addcapturepath/example';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->addCapturePath([
             'id' => 'testapi',
@@ -237,7 +257,10 @@ class ApiTest extends TestBase
   },
   "results": "example"
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $wantPath = '/v1/api/testapi/delcapturepath/example';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->deleteCapturePath([
             'id' => 'testapi',
@@ -261,7 +284,10 @@ class ApiTest extends TestBase
     "example"
   ]
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $wantPath = '/v1/api/testapi/capturepaths';
+        $mockResp = new MockResponder('GET', $wantPath);
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->listCapturePaths([
             'id' => 'testapi',
@@ -286,7 +312,9 @@ class ApiTest extends TestBase
     "createdAt": 1475853823003
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+        $wantPath = '/v1/api/dummy/linkkey/abc123';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->linkKey([
             'id' => 'dummy',

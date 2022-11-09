@@ -48,7 +48,9 @@ class KeyTest extends TestBase
     "apis": []
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+
+        $mockResp = new MockResponder('GET', '/v1/key/abc123');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->get([
             'id' => 'abc123',
@@ -71,7 +73,8 @@ class KeyTest extends TestBase
     "createdAt": 1475854103979
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+        $mockResp = new MockResponder('POST', '/v1/key/def123', '{}');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->create([
             'id' => 'def123',
@@ -115,7 +118,8 @@ class KeyTest extends TestBase
     }
   }
 }';
-        $this::nextMock($client, 200, $mockBody);
+        $mockResp = new MockResponder('PUT', '/v1/key/def123', '{"qpm":-1}');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
 
         $api = $client->update([
             'id' => 'def123',
@@ -142,7 +146,9 @@ class KeyTest extends TestBase
     "dummy"
   ]
 }';
-        $this::nextMock($client, 200, $mockBody);
+        $mockResp = new MockResponder('GET', '/v1/key/abc123/apis');
+        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+
 
         $api = $client->listApis([
             'id' => 'abc123',
