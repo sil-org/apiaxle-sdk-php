@@ -14,6 +14,7 @@ class RequestExtras
     const DEFAULTSKEY = 'defaults';
     const AUTHKEY = 'auth';
 
+    // Add Content-Type header to all POST and PUT requests
     public static function getAddContentTypeFn($contentType)
     {
         return static function (callable $handler) use ($contentType) {
@@ -27,6 +28,7 @@ class RequestExtras
         };
     }
 
+    // Ensure there is at least an empty body on all POST and PUT requests
     public static function getEnsureBodyFn()
     {
         return static function (callable $handler) {
@@ -47,7 +49,7 @@ class RequestExtras
         };
     }
 
-
+    // Remove Authorization header and add params for api_key and api_sig
     public static function getAddAuthParamsFn($config)
     {
         return static function (callable $handler) use ($config) {
@@ -59,7 +61,7 @@ class RequestExtras
     }
 
     
-    public static function addAuthParams(RequestInterface $request, array $options)
+    private static function addAuthParams(RequestInterface $request, array $options)
     {
         list($key, $secret) = self::getAuthKeySecret($options);
 
