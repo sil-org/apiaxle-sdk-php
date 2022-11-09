@@ -28,7 +28,7 @@ class KeyringTest extends TestBase
 }';
 
         $mockResp = new MockResponder('POST', '/v2/keyring/sample', '{}');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->create([
             'ApiVersion' => 'v2',
@@ -52,7 +52,7 @@ class KeyringTest extends TestBase
 }';
 
         $mockResp = new MockResponder('GET', '/v1/keyring/sample');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->get(['id' => 'sample']);
 
@@ -73,7 +73,7 @@ class KeyringTest extends TestBase
 }';
 
         $mockResp = new MockResponder('PUT', '/v1/keyring/sample', '{}');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->update(['id' => 'sample']);
 
@@ -98,7 +98,7 @@ class KeyringTest extends TestBase
 }';
 
         $mockResp = new MockResponder('GET', '/v1/keyrings');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->list([]);
 
@@ -122,7 +122,7 @@ class KeyringTest extends TestBase
 }';
         $wantPath = '/v1/keyring/sample/linkkey/abc123';
         $mockResp = new MockResponder('PUT', $wantPath, '{}');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->linkKey([
             'id' => 'sample',
@@ -147,7 +147,7 @@ class KeyringTest extends TestBase
 }';
 
         $mockResp = new MockResponder('GET', '/v1/keyring/sample/keys');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->listKeys(['id' => 'sample']);
 
@@ -171,7 +171,7 @@ class KeyringTest extends TestBase
 }';
         $wantPath = '/v1/keyring/sample/unlinkkey/abc123';
         $mockResp = new MockResponder('PUT', $wantPath, '{}');
-        $this::nextMockNew($client, $mockResp->getResponse($mockBody));
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
 
         $list = $client->unlinkKey([
             'id' => 'sample',

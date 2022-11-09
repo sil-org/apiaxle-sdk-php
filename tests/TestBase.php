@@ -40,14 +40,8 @@ class TestBase extends TestCase
         return new $class($config, $mock);
     }
 
-    public function nextMock($client, $statusCode, $body) {
-        $client->mock->reset();
-        $client->mock->append(new Response($statusCode, [], $body));
-    }
-
-    public function nextMockNew($client, $response) {
+    public function nextMock($client, $response) {
         $client->mock->reset();
         $client->mock->append($response);
     }
-
 }
