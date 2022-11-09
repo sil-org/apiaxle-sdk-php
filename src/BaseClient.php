@@ -18,7 +18,7 @@ class BaseClient extends GuzzleClient
 
     /**
      * @param array $config
-     * @param boolean $mockMode [default=false]
+     * @param GuzzleHttp\Handler\MockHandler $mock [default=null]
      * @throws \Exception
      */
     public function __construct(array $config = [], $mock = null)

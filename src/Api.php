@@ -26,7 +26,7 @@ class Api extends BaseClient
 {
     /**
      * @param array $config
-     * @param boolean $mockMode
+     * @param GuzzleHttp\Handler\MockHandler $mock [default=null]
      */
     public function __construct(array $config = [], $mock = null)
     {
