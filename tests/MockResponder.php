@@ -42,6 +42,25 @@ class MockResponder
         if ($body != $wantBody) {
             throw new \Exception(sprintf($failTemplate, 'body', $wantBody, $body));
         }
+
+        if ($method != 'POST' && $method != 'PUT') {
+            return;
+        }
+
+        $headers = $request->getHeaders();
+        if (!isset($headers['Content-Type'])) {
+            throw new \Exception(sprintf('Content-Type header is missing on a %s request', $method));
+        }
+
+        $cType = $headers['Content-Type']; // nested array
+        $want = 'application/json';
+        if (count($cType) < 1) {
+            throw new \Exception(sprintf($failTemplate, 'Content-Type header', $want, $cType));
+        }
+
+        if ($cType[0] != $want) {
+            throw new \Exception(sprintf($failTemplate, 'Content-Type header', $want, $cType[0]));
+        }
     }
 
     public function getResponse($mockBody)
