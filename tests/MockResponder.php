@@ -21,7 +21,7 @@ class MockResponder
     }
 
     private static function checkRequest($request, $wantMethod, $wantPath, $wantBody, $wantParams) {
-        $failTemplate = 'Incorrect %s. Expected: %s, but got: %s';
+        $failTemplate = 'Incorrect %s. ' . PHP_EOL . '  Expected: %s' . PHP_EOL . '   but got: %s';
         $method = $request->getMethod();
         if ($method != $wantMethod) {
             throw new \Exception(sprintf($failTemplate, 'http method', $wantMethod, $method));

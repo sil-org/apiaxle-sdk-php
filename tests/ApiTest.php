@@ -112,11 +112,21 @@ class ApiTest extends TestBase
     "updatedAt": 1427892638934
   }
 }';
-
-        $wantBody = '{"protocol":"https","tokenSkewProtectionCount":3,"apiFormat":"json",' .
-            '"endPointTimeout":2,"defaultPath":"\/api","disabled":false,"strictSSL":true,' .
-            '"sendThroughApiKey":false,"sendThroughApiSig":false,"hasCapturePaths":false,' .
-            '"allowKeylessUse":false,"keylessQps":2,"keylessQpd":172800}';
+        $wantBody = json_encode([
+            'protocol' => 'https',
+            'tokenSkewProtectionCount' => 3,
+            'apiFormat' => 'json',
+            'endPointTimeout' => 2,
+            'defaultPath' => '/api',
+            'disabled' => false,
+            'strictSSL' => true,
+            'sendThroughApiKey' => false,
+            'sendThroughApiSig' => false,
+            'hasCapturePaths' => false,
+            'allowKeylessUse' => false,
+            'keylessQps' => 2,
+            'keylessQpd' => 172800
+        ]);
         $mockResp = new MockResponder('POST', '/v1/api/testapi', $wantBody);
         $this::nextMock($client, $mockResp->getResponse($mockBody));
 
@@ -204,12 +214,20 @@ class ApiTest extends TestBase
     }
   }
 }';
-
-        $wantBody = '{"protocol":"http","tokenSkewProtectionCount":3,"apiFormat":"json",' .
-            '"endPointTimeout":2,"disabled":false,"strictSSL":true,' .
-            '"sendThroughApiKey":false,"sendThroughApiSig":false,"hasCapturePaths":false,' .
-            '"allowKeylessUse":false,"keylessQps":2,"keylessQpd":172800}';
-
+        $wantBody = json_encode([
+            'protocol' => 'http',
+            'tokenSkewProtectionCount' => 3,
+            'apiFormat' => 'json',
+            'endPointTimeout' => 2,
+            'disabled' => false,
+            'strictSSL' => true,
+            'sendThroughApiKey' => false,
+            'sendThroughApiSig' => false,
+            'hasCapturePaths' => false,
+            'allowKeylessUse' => false,
+            'keylessQps' => 2,
+            'keylessQpd' => 172800
+        ]);
         $mockResp = new MockResponder('PUT', '/v1/api/testapi', $wantBody);
         $this::nextMock($client, $mockResp->getResponse($mockBody));
 
