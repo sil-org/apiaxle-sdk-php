@@ -13,7 +13,24 @@ class KeyTest extends TestBase
     public function testList()
     {
         $client = $this->getClient(self::objectClass);
-        $list = $client->list([]);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200,
+    "pagination": {
+      "next": {},
+      "prev": {}
+    }
+  },
+  "results": [
+    "abc123"
+  ]
+}';
+
+        $mockResp = new MockResponder('GET', '/v2/keys');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $list = $client->list(['ApiVersion' => 'v2',]);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(1, count($list['results']));
@@ -22,7 +39,24 @@ class KeyTest extends TestBase
     public function testGet()
     {
         $client = $this->getClient(self::objectClass);
-        $api = $client->get(['id' => 'abc123']);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475853823003,
+    "apis": []
+  }
+}';
+
+        $mockResp = new MockResponder('GET', '/v1/key/abc123');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $api = $client->get([
+            'id' => 'abc123',
+        ]);
 
         $this->assertEquals(200, $api['statusCode']);
         $this->assertFalse($api['results']['disabled']);
@@ -31,6 +65,19 @@ class KeyTest extends TestBase
     public function testCreate()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475854103979
+  }
+}';
+        $mockResp = new MockResponder('POST', '/v1/key/def123', '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->create([
             'id' => 'def123',
         ]);
@@ -55,6 +102,27 @@ class KeyTest extends TestBase
     public function testUpdate()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "new": {
+      "disabled": false,
+      "createdAt": 1475854103979,
+      "qpm": -1
+    },
+    "old": {
+      "disabled": false,
+      "createdAt": 1475854103979
+    }
+  }
+}';
+        $mockResp = new MockResponder('PUT', '/v1/key/def123', '{"qpm":-1}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->update([
             'id' => 'def123',
             'qpm' => -1
@@ -67,6 +135,23 @@ class KeyTest extends TestBase
     public function testListApis()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200,
+    "pagination": {
+      "next": {},
+      "prev": {}
+    }
+  },
+  "results": [
+    "dummy"
+  ]
+}';
+        $mockResp = new MockResponder('GET', '/v1/key/abc123/apis');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+
         $api = $client->listApis([
             'id' => 'abc123',
         ]);

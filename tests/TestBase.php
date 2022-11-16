@@ -3,21 +3,21 @@ namespace ApiaxleTests;
 
 include __DIR__ . '/../vendor/autoload.php';
 
-use Apiaxle\Api;
-use Apiaxle\Key;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+
 use PHPUnit\Framework\TestCase;
 
 class TestBase extends TestCase
 {
     public $config = [];
-    public $mockMode = true;
     public $proxy = null;
     public $verifySsl = false;
 
     /**
      * Set up default config
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->config = [
             'max_retries' => 0,
@@ -36,6 +36,12 @@ class TestBase extends TestCase
     public function getClient($class, $extraConfig = [])
     {
         $config = array_merge_recursive($this->config, $extraConfig);
-        return new $class($config, $this->mockMode);
+        $mock =  new MockHandler(null);
+        return new $class($config, $mock);
+    }
+
+    public function nextMock($client, $response) {
+        $client->mock->reset();
+        $client->mock->append($response);
     }
 }

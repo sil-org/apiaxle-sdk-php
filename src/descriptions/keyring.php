@@ -1,4 +1,13 @@
 <?php
+
+$apiVersionKey = 'ApiVersion';
+$apiVersionParam =  [
+    'required' => false,
+    'type'     => 'string',
+    'location' => 'uri',
+    'default' => 'v1',
+];
+
 return [
     'operations' => [
         'List' => [
@@ -6,11 +15,7 @@ return [
             'uri' => '/{ApiVersion}/keyrings',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'from' => [
                     'required' => false,
                     'type' => 'integer',
@@ -34,11 +39,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -52,11 +53,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -70,11 +67,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -98,11 +91,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -126,11 +115,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}/keys',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
@@ -159,11 +144,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}/linkkey/{key}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
@@ -182,11 +163,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}/unlinkkey/{key}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type' => 'string',
@@ -205,11 +182,7 @@ return [
             'uri' => '/{ApiVersion}/keyring/{id}/stats',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',

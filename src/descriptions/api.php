@@ -1,5 +1,13 @@
 <?php
 
+$apiVersionKey = 'ApiVersion';
+$apiVersionParam =  [
+    'required' => false,
+    'type'     => 'string',
+    'location' => 'uri',
+    'default' => 'v1',
+];
+
 /*
  * Define Api model parameters for reuse
  */
@@ -125,11 +133,7 @@ return [
             'uri' => '/{ApiVersion}/apis',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'from' => [
                     'required' => false,
                     'type' => 'integer',
@@ -153,11 +157,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -171,11 +171,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -189,13 +185,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}',
             'responseModel' => 'Generic',
             'parameters' => array_merge(
-                [
-                    'ApiVersion' => [
-                        'required' => true,
-                        'type'     => 'string',
-                        'location' => 'uri',
-                    ]
-                ],
+                [$apiVersionKey => $apiVersionParam],
                 $apiParameters
             ),
         ],
@@ -205,13 +195,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}',
             'responseModel' => 'Generic',
             'parameters' => array_merge(
-                [
-                    'ApiVersion' => [
-                        'required' => true,
-                        'type'     => 'string',
-                        'location' => 'uri',
-                    ]
-                ],
+                [$apiVersionKey => $apiVersionParam],
                 $apiParameters
             ),
         ],
@@ -221,11 +205,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/addcapturepath/{path}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -245,11 +225,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/delcapturepath/{path}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -269,11 +245,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/capturepaths',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -287,11 +259,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/capturepath/{path}/stats/counters',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -347,11 +315,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/capturepaths/stats/counters',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -407,11 +371,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/capturepath/{path}/stats/timers',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -457,11 +417,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/capturepaths/stats/timers',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -507,11 +463,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/keycharts',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -557,11 +509,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/keys',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -590,11 +538,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/linkkey/{key}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -613,11 +557,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/unlinkkey/{key}',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -636,11 +576,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/stats',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -691,11 +627,7 @@ return [
             'uri' => '/{ApiVersion}/api/{id}/stats/timers',
             'responseModel' => 'Generic',
             'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
+                $apiVersionKey => $apiVersionParam,
                 'id' => [
                     'required' => true,
                     'type'     => 'string',
@@ -735,13 +667,7 @@ return [
             'httpMethod' => 'GET',
             'uri' => '/{ApiVersion}/apis/charts',
             'responseModel' => 'Generic',
-            'parameters' => [
-                'ApiVersion' => [
-                    'required' => true,
-                    'type'     => 'string',
-                    'location' => 'uri',
-                ],
-            ],
+            'parameters' => [$apiVersionKey => $apiVersionParam],
         ],
 
     ],
