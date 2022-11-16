@@ -1,7 +1,11 @@
 <?php
 namespace ApiaxleTests;
 
+use GuzzleHttp\Psr7\Response;
+
 use Apiaxle\Keyring;
+use Psr\Http\Message\RequestInterface;
+
 
 include __DIR__ . '/../vendor/autoload.php';
 
@@ -13,7 +17,21 @@ class KeyringTest extends TestBase
     public function testCreate()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "createdAt": 1475860320098
+  }
+}';
+
+        $mockResp = new MockResponder('POST', '/v2/keyring/sample', '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $list = $client->create([
+            'ApiVersion' => 'v2',
             'id' => 'sample'
         ]);
 
@@ -23,9 +41,20 @@ class KeyringTest extends TestBase
     public function testGet()
     {
         $client = $this->getClient(self::objectClass);
-        $list = $client->get([
-            'id' => 'sample'
-        ]);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "createdAt": 1475860320098
+  }
+}';
+
+        $mockResp = new MockResponder('GET', '/v1/keyring/sample');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $list = $client->get(['id' => 'sample']);
 
         $this->assertEquals(200, $list['statusCode']);
     }
@@ -33,9 +62,20 @@ class KeyringTest extends TestBase
     public function testUpdate()
     {
         $client = $this->getClient(self::objectClass);
-        $list = $client->update([
-            'id' => 'sample'
-        ]);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "createdAt": 1475860320098
+  }
+}';
+
+        $mockResp = new MockResponder('PUT', '/v1/keyring/sample', '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $list = $client->update(['id' => 'sample']);
 
         $this->assertEquals(200, $list['statusCode']);
     }
@@ -43,6 +83,23 @@ class KeyringTest extends TestBase
     public function testList()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200,
+    "pagination": {
+      "next": {},
+      "prev": {}
+    }
+  },
+  "results": [
+    "sample"
+  ]
+}';
+
+        $mockResp = new MockResponder('GET', '/v1/keyrings');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $list = $client->list([]);
 
         $this->assertEquals(200, $list['statusCode']);
@@ -53,6 +110,20 @@ class KeyringTest extends TestBase
     public function testLinkKey()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475853823003
+  }
+}';
+        $wantPath = '/v1/keyring/sample/linkkey/abc123';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $list = $client->linkKey([
             'id' => 'sample',
             'key' => 'abc123',
@@ -65,9 +136,20 @@ class KeyringTest extends TestBase
     public function testListKeys()
     {
         $client = $this->getClient(self::objectClass);
-        $list = $client->listKeys([
-            'id' => 'sample',
-        ]);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": [
+    "abc123"
+  ]
+}';
+
+        $mockResp = new MockResponder('GET', '/v1/keyring/sample/keys');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $list = $client->listKeys(['id' => 'sample']);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(1, count($list['results']));
@@ -77,6 +159,20 @@ class KeyringTest extends TestBase
     public function testUnlinkKey()
     {
         $client = $this->getClient(self::objectClass);
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475853823003
+  }
+}';
+        $wantPath = '/v1/keyring/sample/unlinkkey/abc123';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $list = $client->unlinkKey([
             'id' => 'sample',
             'key' => 'abc123',

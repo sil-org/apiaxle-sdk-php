@@ -2,6 +2,8 @@
 namespace ApiaxleTests;
 
 use Apiaxle\Api;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
 
 include __DIR__ . '/../vendor/autoload.php';
 
@@ -13,7 +15,32 @@ class ApiTest extends TestBase
     public function testList()
     {
         $client = $this->getClient(self::objectClass);
-        $list = $client->list([]);
+
+        $mockBody = '{
+  "meta": {
+    "version": 2,
+    "status_code": 200,
+    "pagination": {
+      "next": {
+        "href": "http://127.0.0.1:8000/v1/apis?from=11&to=21&resolve=false",
+        "from": 11,
+        "to": 21
+      },
+      "prev": {}
+    }
+  },
+  "results": [
+    "apiaxle",
+    "dummy",
+    "test",
+    "sample"
+  ]
+}';
+
+        $mockResp = new MockResponder('GET', '/v2/apis');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $list = $client->list(['ApiVersion' => 'v2',]);
 
         $this->assertEquals(200, $list['statusCode']);
         $this->assertEquals(4, count($list['results']));
@@ -22,7 +49,37 @@ class ApiTest extends TestBase
     public function testGet()
     {
         $client = $this->getClient(self::objectClass);
-        $api = $client->get(['id' => 'apiaxle']);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "protocol": "http",
+    "apiFormat": "json",
+    "endPointTimeout": 2,
+    "disabled": false,
+    "strictSSL": true,
+    "sendThroughApiKey": false,
+    "sendThroughApiSig": false,
+    "endPoint": "localhost:8000",
+    "createdAt": 1389915291013,
+    "tokenSkewProtectionCount": 3,
+    "hasCapturePaths": false,
+    "allowKeylessUse": false,
+    "keylessQps": 2,
+    "keylessQpd": 172800,
+    "updatedAt": 1427892638934
+  }
+}';
+
+        $mockResp = new MockResponder('GET', '/v1/api/apiaxle');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
+        $api = $client->get([
+            'id' => 'apiaxle',
+        ]);
 
         $this->assertEquals(200, $api['statusCode']);
         $this->assertEquals('http', $api['results']['protocol']);
@@ -31,8 +88,49 @@ class ApiTest extends TestBase
     public function testCreate()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "protocol": "https",
+    "apiFormat": "json",
+    "endPointTimeout": 2,
+    "disabled": false,
+    "strictSSL": true,
+    "sendThroughApiKey": false,
+    "sendThroughApiSig": false,
+    "endPoint": "myapiendpoint.com",
+    "createdAt": 1389915291013,
+    "tokenSkewProtectionCount": 3,
+    "hasCapturePaths": false,
+    "allowKeylessUse": false,
+    "keylessQps": 2,
+    "keylessQpd": 172800,
+    "updatedAt": 1427892638934
+  }
+}';
+        $wantBody = json_encode([
+            'protocol' => 'https',
+            'tokenSkewProtectionCount' => 3,
+            'apiFormat' => 'json',
+            'endPointTimeout' => 2,
+            'defaultPath' => '/api',
+            'disabled' => false,
+            'strictSSL' => true,
+            'sendThroughApiKey' => false,
+            'sendThroughApiSig' => false,
+            'hasCapturePaths' => false,
+            'allowKeylessUse' => false,
+            'keylessQps' => 2,
+            'keylessQpd' => 172800
+        ]);
+        $mockResp = new MockResponder('POST', '/v1/api/testapi', $wantBody);
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->create([
-            //'id' => 'testapi',
             'id' => 'testapi',
             'endpoint' => 'myapiendpoint.com',
             'protocol' => 'https',
@@ -41,7 +139,7 @@ class ApiTest extends TestBase
         ]);
 
         $this->assertEquals(200, $api['statusCode']);
-        $this->assertEquals('http', $api['results']['protocol']);
+        $this->assertEquals('https', $api['results']['protocol']);
     }
 
     public function testCreateInvalidProtocol()
@@ -66,13 +164,73 @@ class ApiTest extends TestBase
         $this->expectExceptionMessage('Validation errors: [strictSSL] must be of type boolean');
         $client->create([
             'id' => 'testinginvalidparameters',
-            'strictSSL' => 'invalid'
+            'strictSSL' => [], // apparently, it accepts strings and integers as booleans now
         ]);
     }
 
     public function testUpdate()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "new": {
+      "protocol": "http",
+      "tokenSkewProtectionCount": 3,
+      "apiFormat": "json",
+      "endPointTimeout": 10,
+      "disabled": false,
+      "strictSSL": true,
+      "sendThroughApiKey": false,
+      "sendThroughApiSig": false,
+      "hasCapturePaths": false,
+      "allowKeylessUse": false,
+      "keylessQps": 2,
+      "keylessQpd": 172800,
+      "endPoint": "local",
+      "defaultPath": "/dummy-api",
+      "createdAt": 1467812949223
+    },
+    "old": {
+      "protocol": "https",
+      "tokenSkewProtectionCount": 3,
+      "apiFormat": "json",
+      "endPointTimeout": 10,
+      "disabled": false,
+      "strictSSL": true,
+      "sendThroughApiKey": false,
+      "sendThroughApiSig": false,
+      "hasCapturePaths": false,
+      "allowKeylessUse": false,
+      "keylessQps": 2,
+      "keylessQpd": 172800,
+      "endPoint": "local",
+      "defaultPath": "/dummy-api",
+      "createdAt": 1467812949223
+    }
+  }
+}';
+        $wantBody = json_encode([
+            'protocol' => 'http',
+            'tokenSkewProtectionCount' => 3,
+            'apiFormat' => 'json',
+            'endPointTimeout' => 2,
+            'disabled' => false,
+            'strictSSL' => true,
+            'sendThroughApiKey' => false,
+            'sendThroughApiSig' => false,
+            'hasCapturePaths' => false,
+            'allowKeylessUse' => false,
+            'keylessQps' => 2,
+            'keylessQpd' => 172800
+        ]);
+        $mockResp = new MockResponder('PUT', '/v1/api/testapi', $wantBody);
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->update([
             'id' => 'testapi',
             'protocol' => 'http'
@@ -85,6 +243,18 @@ class ApiTest extends TestBase
     public function testAddCapturePath()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": "example"
+}';
+        $wantPath = '/v1/api/testapi/addcapturepath/example';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->addCapturePath([
             'id' => 'testapi',
             'path' => 'example'
@@ -97,6 +267,19 @@ class ApiTest extends TestBase
     public function testDeleteCapturePath()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": "example"
+}';
+
+        $wantPath = '/v1/api/testapi/delcapturepath/example';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->deleteCapturePath([
             'id' => 'testapi',
             'path' => 'example'
@@ -109,6 +292,21 @@ class ApiTest extends TestBase
     public function testListCapturePaths()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": [
+    "example"
+  ]
+}';
+
+        $wantPath = '/v1/api/testapi/capturepaths';
+        $mockResp = new MockResponder('GET', $wantPath);
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->listCapturePaths([
             'id' => 'testapi',
         ]);
@@ -121,6 +319,21 @@ class ApiTest extends TestBase
     public function testLinkKey()
     {
         $client = $this->getClient(self::objectClass);
+
+        $mockBody = '{
+  "meta": {
+    "version": 1,
+    "status_code": 200
+  },
+  "results": {
+    "disabled": false,
+    "createdAt": 1475853823003
+  }
+}';
+        $wantPath = '/v1/api/dummy/linkkey/abc123';
+        $mockResp = new MockResponder('PUT', $wantPath, '{}');
+        $this::nextMock($client, $mockResp->getResponse($mockBody));
+
         $api = $client->linkKey([
             'id' => 'dummy',
             'key' => 'abc123'
