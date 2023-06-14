@@ -1,7 +1,8 @@
-version: '2.2'
+version: '2.4'
 services:
   php:
     image: silintl/php8:8.1
+    platform: linux/amd64
     volumes:
       - ./:/data
     working_dir: /data
