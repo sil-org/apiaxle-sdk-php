@@ -7,6 +7,7 @@ composershow:
 
 composerupdate:
 	docker-compose run --rm php bash -c "composer update --no-scripts"
+	make composershow
 
 test:
 	docker-compose run --rm php bash -c "./vendor/bin/phpunit ./tests"
